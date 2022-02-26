@@ -1,46 +1,45 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import ChatRoom from "./components/ChatRoom";
+import LoginScreen from "./components/LoginScreen";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-class App extends Component {
-  constructor() {
-    super();
-    this.state = { messages: [] };
-    this.drone = new window.Scaledrone("Z806yyLPr25GOfjY", {
-      data: { username: "Jakov" },
-    });
-    const room = this.drone.subscribe("my-room");
-    room.on("message", (message) => {
-      const { data, id, timestamp, clientId, member } = message;
-      this.setState({
-        messages: [
-          ...this.state.messages,
-          {
-            data: data,
-            id: id,
-            timestamp: timestamp,
-            clientId: clientId,
-            member: member,
-          },
-        ],
-      });
-    });
-  }
-  sendMessage = (text) =>
-    this.drone.publish({
-      room: "my-room",
-      message: text,
-    });
+const theme = createTheme({
+  palette: {
+    type: "light",
+    primary: {
+      main: "#3f51b5",
+    },
+    secondary: {
+      main: "#f50057",
+    },
+    background: {
+      default: "#ffab2c",
+    },
+  },
+});
 
-  render() {
-    return (
-      <div>
-        <ChatRoom
-          sendMessage={this.sendMessage}
-          messages={this.state.messages}
+const App = () => {
+  const [username, setUsername] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // return isLoggedIn === true && username ? (
+  //   <ChatRoom username={username} />
+  // ) : (
+  //   <LoginScreen
+  //     username={username}
+  //     setUsername={setUsername}
+  //     setIsLoggedIn={setIsLoggedIn}
+  //   />
+  return (
+    <ThemeProvider theme={theme}>
+      <div id="main-screen">
+        <LoginScreen
+          username={username}
+          setUsername={setUsername}
+          setIsLoggedIn={setIsLoggedIn}
         />
       </div>
-    );
-  }
-}
+    </ThemeProvider>
+  );
+};
 
 export default App;
