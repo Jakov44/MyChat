@@ -32,11 +32,12 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <div id="main-screen">
-        <LoginScreen
+        <ChatRoom username={username} />
+        {/* <LoginScreen
           username={username}
           setUsername={setUsername}
           setIsLoggedIn={setIsLoggedIn}
-        />
+        /> */}
       </div>
     </ThemeProvider>
   );

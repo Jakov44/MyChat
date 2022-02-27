@@ -58,7 +58,7 @@ const LoginScreen = ({ username, setUsername, setIsLoggedIn }) => {
           <Typography component="h1" sx={{ fontSize: "30px" }}>
             Welcome to ChatAway
           </Typography>
-          <Avatar {...stringAvatar("New User")}></Avatar>
+          <Avatar {...stringAvatar("Chat Away")}></Avatar>
           <InputLabel sx={{ fontSize: "22px" }}>Enter username:</InputLabel>
           <Input
             placeholder="UserName"
@@ -67,7 +67,7 @@ const LoginScreen = ({ username, setUsername, setIsLoggedIn }) => {
             onChange={(e) => setUsername(e.target.value)}
             type="text"
           ></Input>
-          <Button variant="outlined" type="submit">
+          <Button variant="outlined" type="submit" sx={{ width: "130px" }}>
             Login
           </Button>
         </Stack>
