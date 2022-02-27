@@ -3,7 +3,7 @@ import RoomsList from "./RoomsList";
 import MessageScreen from "./MessageScreen";
 import MessageInput from "./MessageInput";
 import UsersList from "./UsersList";
-import { Container, Paper } from "@mui/material";
+import { Container, Paper, Box } from "@mui/material";
 
 export default class ChatRoom extends Component {
   constructor(props) {
@@ -37,12 +37,24 @@ export default class ChatRoom extends Component {
   render() {
     return (
       <Container maxWidth={"lg"}>
-        {/* <RoomsList /> */}
-
-        <Paper style={{ height: "700px" }} sx={{ borderRadius: "15px" }}>
-          <UsersList />
-          <MessageScreen messages={this.state.messages} />
-          <MessageInput sendMessage={this.sendMessage} />
+        <Paper style={{ height: "800px" }} sx={{ borderRadius: "15px" }}>
+          <Box sx={{ display: "flex", height: "100%", flexDirection: "row" }}>
+            <RoomsList />
+            <Box
+              sx={{
+                display: "flex",
+                height: "100%",
+                width: "90%",
+                flexDirection: "column",
+                justifyContent: "space-between",
+                alignItems: "flex-end",
+              }}
+            >
+              <UsersList />
+              <MessageScreen messages={this.state.messages} />
+              <MessageInput sendMessage={this.sendMessage} />
+            </Box>
+          </Box>
         </Paper>
       </Container>
     );

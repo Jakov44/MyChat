@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { store } from "../index";
-import { Button, TextField, Stack, Divider } from "@mui/material";
+import { Button, TextField, Stack, Divider, Box } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 
 const MessageInput = ({ sendMessage }) => {
@@ -10,8 +10,19 @@ const MessageInput = ({ sendMessage }) => {
     e.preventDefault();
   };
   return (
-    <div style={{ height: "10%" }}>
-      <form onSubmit={(e) => onSubmitHandler(e)}>
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "flex-end",
+        height: "8%",
+        width: "100%",
+        marginBottom: "3%",
+      }}
+    >
+      <form
+        style={{ marginLeft: "40%", marginRight: "5%", width: "100%" }}
+        onSubmit={(e) => onSubmitHandler(e)}
+      >
         <Stack
           direction="row"
           divider={<Divider orientation="vertical" flexItem />}
@@ -36,7 +47,7 @@ const MessageInput = ({ sendMessage }) => {
           </Button>
         </Stack>
       </form>
-    </div>
+    </Box>
   );
 };
 

@@ -1,7 +1,7 @@
 import React from "react";
 
 const RoomsList = () => {
-  return <div>RoomsList</div>;
+  return <div style={{ width: "10%" }}>RoomsList</div>;
 };
 
 export default RoomsList;
