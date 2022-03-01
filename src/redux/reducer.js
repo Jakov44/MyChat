@@ -1,4 +1,4 @@
-const allMessages = ["jedna poruka", "druga poruka", "treca poruka"];
+const allMessages = [];
 const input = "";
 const username = "";
 const loggedIn = false;

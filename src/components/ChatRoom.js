@@ -5,7 +5,7 @@ import MessageInput from "./MessageInput";
 import UsersList from "./UsersList";
 import { connect } from "react-redux";
 import { Container, Paper, Box } from "@mui/material";
-import { onError, getMembers } from "../redux/actions";
+import { onError, getMembers, newMessage } from "../redux/actions";
 
 class ChatRoom extends Component {
   constructor(props) {
@@ -18,7 +18,7 @@ class ChatRoom extends Component {
       this.props.onError();
     });
 
-    const room = this.drone.subscribe("observable-my-room");
+    const room = this.drone.subscribe("observable-room");
     room.on("members", (members) => {
       console.log(members);
       this.props.getMembers(members);
@@ -32,19 +32,21 @@ class ChatRoom extends Component {
       );
       this.props.getMembers(newMembers);
     });
-    // room.on("message", (message) => {
-    //   const { data, id, timestamp, clientId, member } = message;
-
-    // });
+    room.on("message", (message) => {
+      const { data, id, timestamp, clientId, member } = message;
+      const time = new Date(timestamp * 1000);
+      const messageTime = `${time.getHours()}:${time.getMinutes()}`;
+      this.props.newMessage({ data, id, messageTime, clientId, member });
+    });
   }
-  // sendMessage = (text) =>
-  //   this.drone.publish({
-  //     room: "my-room",
-  //     message: text,
-  //   });
+  sendMessage = (text) =>
+    this.drone.publish({
+      room: "observable-room",
+      message: text,
+    });
 
   componentWillUnmount() {
-    this.room.unsubscribe();
+    this.room.unsubscribe("observable-room");
     this.drone.close();
   }
 
@@ -66,7 +68,7 @@ class ChatRoom extends Component {
             >
               <UsersList />
               <MessageScreen />
-              <MessageInput />
+              <MessageInput sendMessage={this.sendMessage} />
             </Box>
           </Box>
         </Paper>
@@ -79,12 +81,14 @@ function mapStateToProps(state) {
   return {
     username: state.username,
     chatMembers: state.members,
+    allMessages: state.allMessages,
   };
 }
 
 const mapDispatchToProps = {
   onError,
   getMembers,
+  newMessage,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChatRoom);

@@ -1,10 +1,21 @@
 import React from "react";
 import { Box, Typography, Stack } from "@mui/material";
+import { useSelector } from "react-redux";
 
 const MessageScreen = () => {
   // const renderedMessages = messages.map((message) => {
   //   return <p key={message.timestamp}>{message.data}</p>;
   // });
+  const messages = useSelector((state) => state.allMessages);
+  const renderedMessages = messages.map(({ id, data, messageTime, member }) => {
+    return (
+      <Typography key={id}>
+        {data}
+        {messageTime}
+        {member.clientData.username}
+      </Typography>
+    );
+  });
 
   return (
     <Box
@@ -28,10 +39,7 @@ const MessageScreen = () => {
           marginBottom: "3%",
         }}
       >
-        <Typography>Jedna Poruka</Typography>
-        <Typography>Druga Poruka</Typography>
-        <Typography>Treca Poruka</Typography>
-        {/* {renderedMessages} */}
+        {renderedMessages}
       </Stack>
     </Box>
   );

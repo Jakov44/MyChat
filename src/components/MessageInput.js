@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Button, TextField, Stack, Divider, Box } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 
-const MessageInput = () => {
+const MessageInput = ({ sendMessage }) => {
   const input = useSelector((state) => state.input);
   const dispatch = useDispatch();
   return (
@@ -37,8 +37,13 @@ const MessageInput = () => {
               });
             }}
           />
-          <Button variant="outlined" endIcon={<SendIcon />} type="submit">
-            Pošalji
+          <Button
+            onClick={() => sendMessage(input)}
+            variant="outlined"
+            endIcon={<SendIcon />}
+            type="submit"
+          >
+            Send
           </Button>
         </Stack>
       </form>
