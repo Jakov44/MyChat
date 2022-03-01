@@ -1,10 +1,10 @@
 import React from "react";
 import { Box, Typography, Stack } from "@mui/material";
 
-const MessageScreen = ({ messages }) => {
-  const renderedMessages = messages.map((message) => {
-    return <p key={message.timestamp}>{message.data}</p>;
-  });
+const MessageScreen = () => {
+  // const renderedMessages = messages.map((message) => {
+  //   return <p key={message.timestamp}>{message.data}</p>;
+  // });
 
   return (
     <Box

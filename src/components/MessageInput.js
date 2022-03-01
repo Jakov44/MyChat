@@ -1,14 +1,11 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { store } from "../index";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Button, TextField, Stack, Divider, Box } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 
-const MessageInput = ({ sendMessage }) => {
-  const [typedMessage, setTypedMessage] = useState("");
-  const onSubmitHandler = (e) => {
-    e.preventDefault();
-  };
+const MessageInput = () => {
+  const input = useSelector((state) => state.input);
+  const dispatch = useDispatch();
   return (
     <Box
       sx={{
@@ -21,7 +18,7 @@ const MessageInput = ({ sendMessage }) => {
     >
       <form
         style={{ marginLeft: "40%", marginRight: "5%", width: "100%" }}
-        onSubmit={(e) => onSubmitHandler(e)}
+        onSubmit={(e) => e.preventDefault()}
       >
         <Stack
           direction="row"
@@ -32,17 +29,15 @@ const MessageInput = ({ sendMessage }) => {
             sx={{ width: "70%" }}
             placeholder="Type your message..."
             type="text"
-            value={typedMessage}
+            value={input}
             onChange={(event) => {
-              setTypedMessage(event.target.value);
+              dispatch({
+                type: "CURRENT_MESSAGE",
+                payload: event.target.value,
+              });
             }}
           />
-          <Button
-            variant="outlined"
-            endIcon={<SendIcon />}
-            type="submit"
-            onClick={() => sendMessage(typedMessage)}
-          >
+          <Button variant="outlined" endIcon={<SendIcon />} type="submit">
             Pošalji
           </Button>
         </Stack>

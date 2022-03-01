@@ -3,37 +3,51 @@ import RoomsList from "./RoomsList";
 import MessageScreen from "./MessageScreen";
 import MessageInput from "./MessageInput";
 import UsersList from "./UsersList";
+import { connect } from "react-redux";
 import { Container, Paper, Box } from "@mui/material";
+import { onError, getMembers } from "../redux/actions";
 
-export default class ChatRoom extends Component {
+class ChatRoom extends Component {
   constructor(props) {
     super(props);
-    this.state = { messages: [] };
-    // this.drone = new window.Scaledrone("Z806yyLPr25GOfjY", {
-    //   data: { username: this.props.username },
-    // });
-    // const room = this.drone.subscribe("my-room");
+    this.drone = new window.Scaledrone("Z806yyLPr25GOfjY", {
+      data: { username: this.props.username },
+    });
+
+    this.drone.on("error", (error) => {
+      this.props.onError();
+    });
+
+    const room = this.drone.subscribe("observable-my-room");
+    room.on("members", (members) => {
+      console.log(members);
+      this.props.getMembers(members);
+    });
+    room.on("member_join", (member) => {
+      this.props.getMembers([...this.props.chatMembers, member]);
+    });
+    room.on("member_leave", (member) => {
+      let newMembers = this.props.chatMembers.filter(
+        (chatMember) => chatMember.id !== member.id
+      );
+      this.props.getMembers(newMembers);
+    });
     // room.on("message", (message) => {
     //   const { data, id, timestamp, clientId, member } = message;
-    //   this.setState({
-    //     messages: [
-    //       ...this.state.messages,
-    //       {
-    //         data: data,
-    //         id: id,
-    //         timestamp: timestamp,
-    //         clientId: clientId,
-    //         member: member,
-    //       },
-    //     ],
-    //   });
+
     // });
   }
-  sendMessage = (text) =>
-    this.drone.publish({
-      room: "my-room",
-      message: text,
-    });
+  // sendMessage = (text) =>
+  //   this.drone.publish({
+  //     room: "my-room",
+  //     message: text,
+  //   });
+
+  componentWillUnmount() {
+    this.room.unsubscribe();
+    this.drone.close();
+  }
+
   render() {
     return (
       <Container maxWidth={"lg"}>
@@ -51,8 +65,8 @@ export default class ChatRoom extends Component {
               }}
             >
               <UsersList />
-              <MessageScreen messages={this.state.messages} />
-              <MessageInput sendMessage={this.sendMessage} />
+              <MessageScreen />
+              <MessageInput />
             </Box>
           </Box>
         </Paper>
@@ -60,3 +74,17 @@ export default class ChatRoom extends Component {
     );
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    username: state.username,
+    chatMembers: state.members,
+  };
+}
+
+const mapDispatchToProps = {
+  onError,
+  getMembers,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ChatRoom);
