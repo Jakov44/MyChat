@@ -16,7 +16,7 @@ const LoginScreen = () => {
   const input = useSelector((state) => state.username);
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    dispatch({ type: "LOGGED_IN" });
+    dispatch({ type: "LOGGED_IN", payload: true });
   };
   return (
     <Paper id="login-card" elevation={5} sx={{ borderRadius: "15px" }}>

@@ -4,14 +4,18 @@ import MessageScreen from "./MessageScreen";
 import MessageInput from "./MessageInput";
 import UsersList from "./UsersList";
 import { connect } from "react-redux";
-import { Container, Paper, Box } from "@mui/material";
+import { Paper, Box } from "@mui/material";
 import { onError, getMembers, newMessage } from "../redux/actions";
+import { stringToColor } from "../material/material";
 
 class ChatRoom extends Component {
   constructor(props) {
     super(props);
     this.drone = new window.Scaledrone("Z806yyLPr25GOfjY", {
-      data: { username: this.props.username },
+      data: {
+        username: this.props.username,
+        color: stringToColor(this.props.username),
+      },
     });
 
     this.drone.on("error", (error) => {
@@ -46,33 +50,44 @@ class ChatRoom extends Component {
     });
 
   componentWillUnmount() {
-    this.room.unsubscribe("observable-room");
     this.drone.close();
   }
 
   render() {
     return (
-      <Container maxWidth={"lg"}>
-        <Paper style={{ height: "800px" }} sx={{ borderRadius: "15px" }}>
-          <Box sx={{ display: "flex", height: "100%", flexDirection: "row" }}>
-            <RoomsList />
-            <Box
-              sx={{
-                display: "flex",
-                height: "100%",
-                width: "90%",
-                flexDirection: "column",
-                justifyContent: "space-between",
-                alignItems: "flex-end",
-              }}
-            >
-              <UsersList />
-              <MessageScreen />
-              <MessageInput sendMessage={this.sendMessage} />
-            </Box>
+      <Paper
+        className="main-paper"
+        style={{ height: "80%", width: "70%" }}
+        sx={{ borderRadius: "15px" }}
+      >
+        <Box
+          className="container"
+          sx={{
+            display: "flex",
+            height: "100%",
+            flexDirection: "row",
+            justifyContent: "space-evenly",
+          }}
+        >
+          <RoomsList />
+          <Box
+            sx={{
+              display: "flex",
+              height: "100%",
+              width: "80%",
+              flexDirection: "column",
+              justifyContent: "space-between",
+              alignItems: "flex-end",
+              borderLeft: "1px solid #f0f0f0",
+              borderRadius: "10px",
+            }}
+          >
+            <UsersList />
+            <MessageScreen />
+            <MessageInput sendMessage={this.sendMessage} />
           </Box>
-        </Paper>
-      </Container>
+        </Box>
+      </Paper>
     );
   }
 }

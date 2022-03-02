@@ -1,11 +1,22 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, TextField, Stack, Divider, Box } from "@mui/material";
+import {
+  Button,
+  TextField,
+  Stack,
+  Divider,
+  Box,
+  Typography,
+} from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 
 const MessageInput = ({ sendMessage }) => {
   const input = useSelector((state) => state.input);
   const dispatch = useDispatch();
+  const onClickHandler = (input) => {
+    sendMessage(input);
+    dispatch({ type: "CURRENT_MESSAGE", payload: "" });
+  };
   return (
     <Box
       sx={{
@@ -17,14 +28,16 @@ const MessageInput = ({ sendMessage }) => {
       }}
     >
       <form
-        style={{ marginLeft: "40%", marginRight: "5%", width: "100%" }}
+        style={{ marginLeft: "18%", marginRight: "5%", width: "100%" }}
         onSubmit={(e) => e.preventDefault()}
       >
-        <Stack
-          direction="row"
-          divider={<Divider orientation="vertical" flexItem />}
-          spacing={2}
-        >
+        <Stack direction="row" divider={<Divider flexItem />} spacing={2}>
+          <Typography
+            className="title"
+            sx={{ fontSize: "30px", fontStyle: "italic", color: "#c9c9c9" }}
+          >
+            ChatAway...
+          </Typography>
           <TextField
             sx={{ width: "70%" }}
             placeholder="Type your message..."
@@ -38,7 +51,7 @@ const MessageInput = ({ sendMessage }) => {
             }}
           />
           <Button
-            onClick={() => sendMessage(input)}
+            onClick={() => onClickHandler(input)}
             variant="outlined"
             endIcon={<SendIcon />}
             type="submit"

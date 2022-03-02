@@ -6,8 +6,14 @@ import LoginScreen from "./components/LoginScreen";
 const App = () => {
   const isLoggedIn = useSelector((state) => state.loggedIn);
   const username = useSelector((state) => state.username);
+  const backgroundColor = useSelector((state) => state.backColor);
   return (
-    <div id="main-screen">
+    <div
+      id="main-screen"
+      style={{
+        background: `linear-gradient(${backgroundColor})`,
+      }}
+    >
       {isLoggedIn === true && username ? <ChatRoom /> : <LoginScreen />}
     </div>
   );

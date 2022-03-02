@@ -4,8 +4,12 @@ import { Avatar, Stack, Typography } from "@mui/material";
 import { stringAvatar } from "../material/material";
 
 const UsersList = () => {
-  const userAvatar = useSelector((state) => state.username);
-  console.log(userAvatar);
+  const members = useSelector((state) => state.members);
+  const displayAvatars = members.map((member) => {
+    return (
+      <Avatar key={member.id} {...stringAvatar(member.clientData.username)} />
+    );
+  });
   return (
     <Stack
       spacing={1}
@@ -13,15 +17,15 @@ const UsersList = () => {
       direction="row"
       sx={{
         height: "10%",
-        width: "90%",
+        width: "80%",
         marginRight: "5%",
         marginTop: "2%",
-        border: "1px solid black",
+        backgroundColor: "#fcfcfc",
         borderRadius: "10px",
       }}
     >
       <Typography sx={{ marginLeft: "3%" }}>Online:</Typography>
-      <Avatar {...stringAvatar(userAvatar)} />
+      {displayAvatars}
     </Stack>
   );
 };
