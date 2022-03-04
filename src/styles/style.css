@@ -20,6 +20,12 @@ body {
   height: 70%;
 }
 
+.input-form {
+  width: 80%;
+  margin-bottom: 3%;
+  margin-right: 4%;
+}
+
 @media only screen and (max-width: 720px) {
   #login-card {
     height: 80%;
@@ -36,6 +42,7 @@ body {
 @media only screen and (max-width: 1200px) {
   .main-paper {
     width: 90% !important;
+    height: 90% !important;
   }
 }
 
@@ -45,9 +52,15 @@ body {
     justify-content: center !important;
     align-items: center !important;
   }
+  .message-container {
+    border: none !important;
+    width: 100% !important;
+    align-items: center !important;
+    height: 83% !important;
+  }
   .sidebar {
     flex-direction: row !important;
-    height: 10% !important;
+    margin-bottom: 5% !important;
     width: 100% !important;
     justify-content: space-evenly !important;
   }
@@ -61,9 +74,34 @@ body {
     justify-content: space-around !important;
   }
   .logout {
-    font-size: 30px !important;
+    font-size: 35px !important;
   }
   .label {
-    font-size: 14px !important;
+    display: none !important;
+  }
+  .select {
+    font-size: 12px !important;
+    margin-top: 0% !important;
+  }
+  .input-form {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .input-form button {
+    margin-left: 0 !important;
+  }
+  .textfield {
+    margin-left: 0% !important;
+  }
+  .textfield input {
+    font-size: 12px;
+  }
+  .users {
+    margin-right: 0 !important;
+    margin-top: 0 !important;
+  }
+  .message-container2 {
+    margin-right: 0 !important;
+    margin-bottom: 0 !important;
   }
 }

@@ -12,6 +12,7 @@ const UsersList = () => {
   });
   return (
     <Stack
+      className="users"
       spacing={1}
       alignItems="center"
       direction="row"

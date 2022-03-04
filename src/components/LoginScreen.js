@@ -1,5 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import MainCard from "../containers/MainCard";
 import {
   Input,
   Stack,
@@ -7,7 +8,6 @@ import {
   Button,
   Typography,
   Avatar,
-  Paper,
 } from "@mui/material";
 import { stringAvatar } from "../material/material";
 
@@ -19,7 +19,7 @@ const LoginScreen = () => {
     dispatch({ type: "LOGGED_IN", payload: true });
   };
   return (
-    <Paper id="login-card" elevation={5} sx={{ borderRadius: "15px" }}>
+    <MainCard>
       <form
         onSubmit={(e) => onSubmitHandler(e)}
         style={{ width: "100%", height: "100%" }}
@@ -36,6 +36,8 @@ const LoginScreen = () => {
           <Avatar {...stringAvatar("Chat Away")}></Avatar>
           <InputLabel sx={{ fontSize: "22px" }}>Enter username:</InputLabel>
           <Input
+            inputProps={{ minLength: 2 }}
+            required={true}
             placeholder="UserName"
             label="Outlined"
             value={input}
@@ -49,7 +51,7 @@ const LoginScreen = () => {
           </Button>
         </Stack>
       </form>
-    </Paper>
+    </MainCard>
   );
 };
 

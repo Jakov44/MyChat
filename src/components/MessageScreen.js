@@ -69,6 +69,7 @@ const MessageScreen = () => {
 
   return (
     <Box
+      className="message-container2"
       sx={{
         height: "70%",
         width: "80%",

@@ -32,13 +32,6 @@ const RoomsList = () => {
         paddingTop: "2%",
       }}
     >
-      <IconButton
-        onClick={(e) => onClickHandler(e)}
-        sx={{ fontSize: "50px" }}
-        className="logout"
-      >
-        <LogoutIcon fontSize="inherit"></LogoutIcon>
-      </IconButton>
       <FormGroup className="sidebar-form">
         <Stack
           sx={{
@@ -49,30 +42,47 @@ const RoomsList = () => {
           className="forms"
           spacing={2}
         >
-          <InputLabel className="label" id="label-font">
-            Font-Size
+          <IconButton
+            onClick={(e) => onClickHandler(e)}
+            sx={{ fontSize: "50px" }}
+            className="logout"
+          >
+            <LogoutIcon fontSize="inherit"></LogoutIcon>
+          </IconButton>
+          <InputLabel id="label-font" className="label">
+            Font Size
           </InputLabel>
           <Select
+            labelId="label-font"
+            className="select"
             autoWidth={true}
             value={currentFont}
             onChange={(e) =>
               dispatch({ type: "FONT_SIZE", payload: e.target.value })
             }
-            labelId="label-font"
           >
+            <MenuItem disabled value="">
+              <em>Font</em>
+            </MenuItem>
             <MenuItem value="default">Default</MenuItem>
             <MenuItem value="small">Small</MenuItem>
             <MenuItem value="large">Large</MenuItem>
           </Select>
-          <InputLabel id="label-color">Background Color</InputLabel>
+          <InputLabel id="label-color" className="label">
+            Background Color
+          </InputLabel>
           <Select
+            labelId="label-color"
+            className="select"
             autoWidth={true}
             value={backgroundColor}
             onChange={(e) =>
               dispatch({ type: "BACKGROUND_COLOR", payload: e.target.value })
             }
-            labelId="label-color"
           >
+            <MenuItem disabled value="">
+              <em>Color</em>
+            </MenuItem>
             <MenuItem value={orange}>Orange</MenuItem>
             <MenuItem value={blue}>Blue</MenuItem>
             <MenuItem value={green}>Green</MenuItem>

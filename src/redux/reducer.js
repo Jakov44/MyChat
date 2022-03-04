@@ -29,7 +29,9 @@ export default function reducer(state = initialState, action) {
     case "LOGGED_IN":
       return { ...state, loggedIn: action.payload };
     case "ERROR":
-      return { ...state, error: !error };
+      return { ...state, error: action.payload };
+    case "RECONNECT":
+      return { ...state, error: action.payload };
     case "MEMBERS":
       return { ...state, members: action.payload };
     case "FONT_SIZE":
