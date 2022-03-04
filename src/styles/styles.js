@@ -46,6 +46,7 @@ export const styleUsersStack = {
   marginTop: "2%",
   backgroundColor: "#fcfcfc",
   borderRadius: "10px",
+  overflow: "auto",
 };
 
 export const styleSidebarBox = {

@@ -8,7 +8,11 @@ const UsersList = () => {
   const members = useSelector((state) => state.members);
   const displayAvatars = members.map((member) => {
     return (
-      <Avatar key={member.id} {...stringAvatar(member.clientData.username)} />
+      <Avatar
+        title={member.clientData.username}
+        key={member.id}
+        {...stringAvatar(member.clientData.username)}
+      />
     );
   });
   return (
