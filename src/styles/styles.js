@@ -24,7 +24,7 @@ export const styleErrorT = {
 export const styleMessageBox = {
   height: "70%",
   width: "80%",
-  backgroundColor: "#fcfcfc",
+  backgroundColor: "#ebebeb",
   marginRight: "5%",
   marginBottom: "2%",
   borderRadius: "10px",
@@ -40,11 +40,11 @@ export const styleMessageStack = {
 };
 
 export const styleUsersStack = {
-  height: "10%",
+  height: "9%",
   width: "80%",
   marginRight: "5%",
   marginTop: "2%",
-  backgroundColor: "#fcfcfc",
+  backgroundColor: "#ebebeb",
   borderRadius: "10px",
   overflow: "auto",
 };
