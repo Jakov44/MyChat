@@ -1,7 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Avatar, Stack, Typography } from "@mui/material";
-import { stringAvatar } from "../material/material";
+import { stringAvatar } from "../../material/material";
+import { styleUsersStack } from "../../styles/styles";
 
 const UsersList = () => {
   const members = useSelector((state) => state.members);
@@ -16,14 +17,7 @@ const UsersList = () => {
       spacing={1}
       alignItems="center"
       direction="row"
-      sx={{
-        height: "10%",
-        width: "80%",
-        marginRight: "5%",
-        marginTop: "2%",
-        backgroundColor: "#fcfcfc",
-        borderRadius: "10px",
-      }}
+      sx={styleUsersStack}
     >
       <Typography sx={{ marginLeft: "3%" }}>Online:</Typography>
       {displayAvatars}

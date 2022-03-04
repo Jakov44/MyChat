@@ -1,31 +1,15 @@
 import React from "react";
-import MainCard from "../containers/MainCard";
+import MainCard from "../../containers/MainCard";
 import { Typography, Button, Box, CircularProgress } from "@mui/material";
 import { useDispatch } from "react-redux";
+import { styleErrorBox, styleErrorT } from "../../styles/styles";
 
 const ErrorScreen = () => {
   const dispatch = useDispatch();
   return (
     <MainCard>
-      <Box
-        sx={{
-          width: "100%",
-          height: "100%",
-          display: "flex",
-          alignItems: "center",
-          flexDirection: "column",
-          justifyContent: "space-evenly",
-        }}
-      >
-        <Typography
-          align="center"
-          sx={{
-            fontSize: "20px",
-            color: "#fc5603",
-            paddingRight: "10%",
-            paddingLeft: "10%",
-          }}
-        >
+      <Box sx={styleErrorBox}>
+        <Typography align="center" sx={styleErrorT}>
           Something went wrong. Please try logging in again, or wait while we
           attempt to reconnect.
         </Typography>

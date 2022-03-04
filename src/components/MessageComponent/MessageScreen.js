@@ -1,11 +1,16 @@
 import React from "react";
 import { Box, Typography, Stack } from "@mui/material";
 import { useSelector } from "react-redux";
+import { styleMessageBox, styleMessageStack } from "../../styles/styles";
 
 const MessageScreen = () => {
   const messages = useSelector((state) => state.allMessages);
   const username = useSelector((state) => state.username);
   const fontSize = useSelector((state) => state.fontSize);
+  const fontSizeMessage =
+    fontSize === "default" ? "16px" : fontSize === "small" ? "13px" : "22px";
+  const fontSizeTime =
+    fontSize === "default" ? "11px" : fontSize === "small" ? "9px" : "14px";
   const renderedMessages = messages.map(({ id, data, messageTime, member }) => {
     return (
       <Stack
@@ -25,13 +30,7 @@ const MessageScreen = () => {
           sx={{
             color: `${member.clientData.color}`,
             fontWeight: "bold",
-            fontSize: `${
-              fontSize === "default"
-                ? "16px"
-                : fontSize === "small"
-                ? "13px"
-                : "22px"
-            }`,
+            fontSize: `${fontSizeMessage}`,
           }}
         >
           {" "}
@@ -39,25 +38,13 @@ const MessageScreen = () => {
         </Typography>
         <Typography
           sx={{
-            fontSize: `${
-              fontSize === "default"
-                ? "16px"
-                : fontSize === "small"
-                ? "13px"
-                : "22px"
-            }`,
+            fontSize: `${fontSizeMessage}`,
           }}
         >
           {data}{" "}
           <span
             style={{
-              fontSize: `${
-                fontSize === "default"
-                  ? "11px"
-                  : fontSize === "small"
-                  ? "9px"
-                  : "14px"
-              }`,
+              fontSize: `${fontSizeTime}`,
             }}
           >
             {messageTime}
@@ -68,29 +55,12 @@ const MessageScreen = () => {
   });
 
   return (
-    <Box
-      className="message-container2"
-      sx={{
-        height: "70%",
-        width: "80%",
-        backgroundColor: "#fcfcfc",
-        marginRight: "5%",
-        marginBottom: "2%",
-        borderRadius: "10px",
-        overflow: "auto",
-      }}
-    >
+    <Box className="message-container2" sx={styleMessageBox}>
       <Stack
         spacing={2}
         justifyContent="flex-start"
         alignItems="flex-end"
-        sx={{
-          width: "95%",
-          height: "90%",
-          marginTop: "3%",
-          marginBottom: "3%",
-          marginLeft: "2%",
-        }}
+        sx={styleMessageStack}
       >
         {renderedMessages}
       </Stack>

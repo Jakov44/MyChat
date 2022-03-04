@@ -1,14 +1,15 @@
 import React, { Component } from "react";
-import RoomsList from "./RoomsList";
-import MessageScreen from "./MessageScreen";
-import MessageInput from "./MessageInput";
-import UsersList from "./UsersList";
+import Sidebar from "./Sidebar/Sidebar";
+import MessageScreen from "./MessageComponent/MessageScreen";
+import MessageInput from "./MessageComponent/MessageInput";
+import UsersList from "./MessageComponent/UsersList";
 import { connect } from "react-redux";
 import { Paper, Box } from "@mui/material";
 import { onError, getMembers, newMessage, reConnect } from "../redux/actions";
 import { stringToColor } from "../material/material";
-import ErrorScreen from "./ErrorScreen";
+import ErrorScreen from "./ErrorComponents/ErrorScreen";
 import MainContainer from "../containers/MainContainer";
+import { styleChatRoomBoxOuter, styleChatRoomBoxInner } from "../styles/styles";
 
 class ChatRoom extends Component {
   constructor(props) {
@@ -73,29 +74,9 @@ class ChatRoom extends Component {
             style={{ height: "80%", width: "70%" }}
             sx={{ borderRadius: "15px" }}
           >
-            <Box
-              className="container"
-              sx={{
-                display: "flex",
-                height: "100%",
-                flexDirection: "row",
-                justifyContent: "space-evenly",
-              }}
-            >
-              <RoomsList />
-              <Box
-                className="message-container"
-                sx={{
-                  display: "flex",
-                  height: "100%",
-                  width: "80%",
-                  flexDirection: "column",
-                  justifyContent: "space-between",
-                  alignItems: "flex-end",
-                  borderLeft: "1px solid #f0f0f0",
-                  borderRadius: "10px",
-                }}
-              >
+            <Box className="container" sx={styleChatRoomBoxOuter}>
+              <Sidebar />
+              <Box className="message-container" sx={styleChatRoomBoxInner}>
                 <UsersList />
                 <MessageScreen />
                 <MessageInput sendMessage={this.sendMessage} />
